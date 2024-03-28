@@ -1,0 +1,170 @@
+<html>
+<head>
+    <title>Calculadora</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #050801;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        button {
+            padding: 25px 30px;
+            background-color: #050805;
+            color: #0015ff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            letter-spacing: 4px;
+            overflow: hidden;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #03e9f4;
+            color: #050801;
+            box-shadow: 0 0 5px #03e9f4,
+                        0 0 25px #03e9f4,
+                        0 0 50px #03e9f4,
+                        0 0 200px #03e9f4;
+            -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+        }
+
+        #Calculadora {
+            height: 300px;
+            width: 300px;
+            position: relative;
+        }
+
+        .columna {
+            width: 40px; /* Ancho del botón */
+            height: 40px;
+            margin: 3px;
+            float: left;
+        }
+
+        .columna div {
+            width: 40px; /* Ancho del botón */
+            height: 40px;
+            margin: 3px;
+            background: rgb(10, 9, 29);
+            border: #000000ed;
+        }
+
+        .boton {
+            width: 40px; /* Ancho del botón */
+            height: 40px; /* Alto del botón */
+            color: rgb(42, 0, 251);
+            text-align: center;
+            line-height: 40px; /* Alinear verticalmente el texto en el centro */
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .boton:hover {
+            background-color: #afbac6;
+        }
+
+        #display {
+            width: 100%;
+            height: 40px;
+            margin: 10px 0;
+            text-align: right;
+            font-size: 20px;
+        }
+
+        #operador-container {
+            text-align: center;
+        }
+
+        select {
+            width: 100%;
+            height: 30px;
+            margin: 10px 0;
+        }
+
+        button#seleccionar-operador {
+            padding: 10px 15px;
+            margin: 5px;
+        }
+    </style>
+
+    <script>
+        var operadorSeleccionado = "";
+
+        function mostrarNumero(numero) {
+            var display = document.getElementById('display');
+            display.value += numero;
+        }
+
+        function seleccionarOperador(operador) {
+            operadorSeleccionado = operador;
+            var display = document.getElementById('display');
+            display.value += operador;
+        }
+
+        function calcular() {
+            var display = document.getElementById('display');
+            try {
+                var resultado = eval(display.value);
+                display.value = resultado;
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+
+        function borrar() {
+            var display = document.getElementById('display');
+            display.value = '';
+            operadorSeleccionado = "";
+        }
+    </script>
+</head>
+<body>
+    <div id="Calculadora">
+        <input type="text" id="display" readonly>
+        <div class="columna">
+            <div class="boton" onclick="mostrarNumero('9')">9</div>
+            <div class="boton" onclick="mostrarNumero('6')">6</div>
+            <div class="boton" onclick="mostrarNumero('1')">1</div>
+            <div class="boton" onclick="mostrarNumero('.')">.</div>
+        </div>
+        <div class="columna">
+            <div class="boton" onclick="mostrarNumero('8')">8</div>
+            <div class="boton" onclick="mostrarNumero('5')">5</div>
+            <div class="boton" onclick="mostrarNumero('2')">2</div>
+            <div class="boton" onclick="mostrarNumero('0')">0</div>
+        </div>
+        <div class="columna">
+            <div class="boton" onclick="mostrarNumero('7')">7</div>
+            <div class="boton" onclick="mostrarNumero('4')">4</div>
+            <div class="boton" onclick="mostrarNumero('3')">3</div>
+            <div class="boton" onclick="calcular()">=</div>
+        </div>
+        <div class="columna">
+            <div class="boton" onclick="borrar()">C</div>
+        </div>
+    </div>
+
+    <div id="operador-contenedor">
+        <select name="operador" id="operador">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <br>
+        <button id="seleccionar-operador" onclick="seleccionarOperador(document.getElementById('operador').value)">Seleccionar Operador</button><br>
+    </div>
+</body>
+</html>
